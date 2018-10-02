@@ -24,27 +24,30 @@ class User < ActiveRecord::Base
     puts "Awesome! Your starting budget is #{user_balance}."
 
     puts "\nWelcome to Every Cent! We are so excited to have you here."
- 
-
 
     self.create({name: user_name, email: user_email, occupation: user_occupation, age: user_age, password: user_password, balance: user_balance})
   end
 
+ 
+ 
+
   def self.user_login
-    
     #verifies email and stores it
     user_email = verify_email
 
     #verifies that the password matches the account password
-
     verify_password(user_email)
 
-    puts "\nWelcome back! Hope you have been saving."
+    current_user = self.find_by email: user_email
 
+    puts "\nWelcome back #{current_user.name}! Hope you have been saving."
+    
+    current_user
   end
 
 end
 
+ ####helper methods######
 def create_password
   user_password = ""
   loop do
