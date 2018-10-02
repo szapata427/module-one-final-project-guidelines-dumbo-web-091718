@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_many :category, through: :budget_transaction
 
   def self.create_new_user
-    puts "Please input your full name"
+    puts "\nPlease input your full name"
     user_name = gets.chomp
 
     puts "\nEnter your email:"
@@ -34,7 +34,8 @@ def create_password
       puts "\nConfirm password"
       user_password_confirm = gets.chomp
       if user_password != user_password_confirm
-        puts "Passwords don't match! Please try again ;)"
+        puts "\nPasswords don't match! Please try again ;)"
+        puts "========================================="
       end
 
       break if user_password == user_password_confirm
