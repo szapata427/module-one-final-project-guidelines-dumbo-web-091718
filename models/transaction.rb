@@ -2,7 +2,7 @@ class BudgetTransaction < ActiveRecord::Base
   belongs_to :user
   belongs_to :category
 
-def self.create_transaction
+def self.create_transaction(user)
   puts "Did you spend money or did you get paid? \nSelect a number. 
   1. Spent \n  2. Received"
 
@@ -28,9 +28,17 @@ def self.create_transaction
     end
     transaction_category = gets.chomp.to_i
 
-  BudgetTransaction.create(description: transaction_name, amount: transaction_amount, category_id: transaction_category, date: Time.now)
+  BudgetTransaction.create(description: transaction_name, amount: transaction_amount, user_id: user.id, category_id: transaction_category, date: Time.now)
 
 end
 
 
+end
+
+def view_transactions(user)
+ transactions_array = BudgetTransaction.where(:user_id => user.id)
+  puts "Your past transactions are:"
+  transactions_array.each_with_index do |transaction, index|
+    puts "#{index+1}. Amount: #{transaction.amount}, Desc: #{transaction.description}, Date: #{transaction.date},"
+  end
 end
