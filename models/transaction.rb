@@ -28,7 +28,7 @@ def self.create_transaction
     end
     transaction_category = gets.chomp.to_i
 
-  BudgetTransaction.new(description: transaction_name, amount: transaction_amount, category_id: transaction_category, date: Time.now)
+  BudgetTransaction.create(description: transaction_name, amount: transaction_amount, category_id: transaction_category, date: Time.now)
 
 end
 

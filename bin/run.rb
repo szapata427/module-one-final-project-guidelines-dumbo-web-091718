@@ -20,27 +20,30 @@ end
   create_category
 
 
-puts "What would you like to do today? Select a number :)"
+  loop do 
+
+  puts "\nWhat would you like to do today? Select a number :)"
   puts " 1. Transactions \n 2. Check Balance \n 3. Your Goals \n 4. Exit"
 
   user_choice = gets.chomp.to_i
 
-  case user_choice
 
-  when 1 
-    new_transaction = BudgetTransaction.create_transaction
-    current_user.balance += new_transaction.amount 
+    case user_choice  
+    when 1 
+      new_transaction = BudgetTransaction.create_transaction
+      current_user.update_attribute(:balance, current_user.balance += new_transaction.amount)   
+    
+      puts "Your new balance is $#{current_user.balance}."
+    when 2
+      #checkbalance
+      puts "\nYour current balance is $#{current_user.balance}."
   
-    puts "Your new balance is $#{current_user.balance}."
+    when 4
+      puts "are you jason???"
+      break
+    end
+ 
+  end 
 
-  when 2
-    puts "2"
-  else
-    puts "are you jason???"
-  
-
-
-
-
-  end
+  puts "Goodbye #{current_user.name}! Hope you saved $$$$ Hoe ;)"
 
