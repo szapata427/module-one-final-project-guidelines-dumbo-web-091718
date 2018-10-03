@@ -8,8 +8,13 @@ class User < ActiveRecord::Base
     puts "\nPlease input your full name"
     user_name = gets.chomp
 
+    loop do 
     puts "\nEnter your email:"
     user_email = gets.chomp
+
+    break if user_email.include?("@") && user_email.include?(".")
+    puts "\nPlease input a valid email."
+    end
 
     user_password = create_password
     # create_password is a helper method to loop if passwords dont match.
@@ -53,10 +58,10 @@ def create_password
   user_password = ""
   loop do
       puts "\nCreate a password"
-      user_password = gets.chomp
+      user_password = STDIN.noecho(&:gets).chomp
 
       puts "\nConfirm password"
-      user_password_confirm = gets.chomp
+      user_password_confirm = STDIN.noecho(&:gets).chomp
       if user_password != user_password_confirm
         puts "\nPasswords don't match! Please try again ;)"
         puts "========================================="
@@ -91,7 +96,7 @@ def verify_password(user_email)
 
   loop do 
     puts "\nInput your password:"
-    user_password = gets.chomp 
+    user_password = STDIN.noecho(&:gets).chomp 
     if user_info.password != user_password
       puts "\nSorry, incorrect password. Please try again."
       puts "=============================================="

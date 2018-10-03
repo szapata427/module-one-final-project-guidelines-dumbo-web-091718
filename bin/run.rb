@@ -30,7 +30,7 @@ end
     # it is a loop. 
 
   puts "\nWhat would you like to do today? Select a number :)"
-  puts " 1. Transactions \n 2. Check Balance \n 3. Your Goals \n 4. Exit"
+  puts " 1. Transactions \n 2. Check Spending Information \n 3. Your Goals \n 4. Exit"
 
   user_choice = gets.chomp.to_i
 
@@ -54,7 +54,22 @@ end
           end
         end
       when 2
+
+        user_spending_response = ""
+
+        loop do 
+        puts "Would you like to \n 1. View Balance \n 2. Spending by Category."
+          user_spending_response = gets.chomp.to_i
+        break if user_spending_response == 1 || user_spending_response == 2
+        puts "Not a valid input. Please input a number (1 or 2)."
+        end
+
+        if user_spending_response == 1
         puts "\nYour current balance is $#{'%.2f' % current_user.balance}!"
+        elsif user_spending_response == 2
+          category_spending_amount(current_user)
+        end
+
       when 3 
         puts "\nSet spending goals to help you reach financial success!" 
         loop do
