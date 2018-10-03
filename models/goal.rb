@@ -3,7 +3,14 @@ class Goal < ActiveRecord::Base
   has_one :category
  
 
+
 end
+
+def total_goal_amount(user)
+  goals_array = Goal.where(:user_id => user.id)
+  goals_array.inject(0) { |sum, goal| sum + goal.amount }
+end
+
 
 def create_goal(user)
     
