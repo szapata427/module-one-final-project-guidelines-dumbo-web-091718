@@ -1,3 +1,4 @@
+# require 'colorize'
 class BudgetTransaction < ActiveRecord::Base
   belongs_to :user
   belongs_to :category
@@ -39,6 +40,10 @@ def view_transactions(user)
  transactions_array = BudgetTransaction.where(:user_id => user.id)
   puts "Your past transactions are:"
   transactions_array.each_with_index do |transaction, index|
-    puts "#{index+1}. Amount: #{transaction.amount}, Desc: #{transaction.description}, Date: #{transaction.date},"
+    # if transaction_amount < 0
+    puts "#{index+1}. Amount: #{transaction.amount}, Desc: #{transaction.description}, Date: #{transaction.date}."
+    # else 
+      # puts "#{index+1}. Amount: #{transaction.amount}, Desc: #{transaction.description}, Date: #{transaction.date}."
+    # end
   end
 end
