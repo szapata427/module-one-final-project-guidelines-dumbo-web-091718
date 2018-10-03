@@ -13,13 +13,16 @@ end
 
 
 def create_goal(user)
-    
+    user_amount = ""
   puts "\nBriefly describe your goal:"
   user_description = gets.chomp.downcase  
 
+loop do
   puts "\nHow much money would you like to save this month?"
-  user_amount = gets.chomp.to_f 
-
+  user_amount = Float(gets) rescue nil
+  break if user_amount != nil
+  puts "\nThat is not a valid amount! Input a valid number please."
+end
   puts "\nCongrats! You just created a new goal. You want to save $#{user_amount} for the purpose of #{user_description}. :)"
 
   Goal.create(description: user_description, amount: user_amount, user_id: user.id)
