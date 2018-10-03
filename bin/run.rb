@@ -47,18 +47,27 @@ end
           elsif user_transaction_response == 3
             break
           else 
-            puts "Invalid response, please try again."
+            puts "\nInvalid response, please try again."
           end
         end
       when 2
         puts "\nYour current balance is $#{'%.2f' % current_user.balance}!"
       when 3 
         puts "\nSet spending goals to help you reach financial success!" 
-        puts "Would you like to \n 1. Create a goal  \n 2. View your current goals"
-        user_goal_response = gets.chomp.to_i
-        user_goal_response == 1 ? create_goal(current_user) : view_goal(current_user)
+        loop do
+          puts "\nWould you like to \n 1. Create a goal  \n 2. View your current goals \n 3. Exit"
+          user_goal_response = gets.chomp.to_i
+          if user_goal_response == 1 
+            create_goal(current_user)
+          elsif user_goal_response == 2 
+            view_goal(current_user)
+          elsif user_goal_response == 3
+            break
+          else 
+            puts "\nInvalid response, please try again."
+          end
+        end
       when 4
-
         break
     end
  
