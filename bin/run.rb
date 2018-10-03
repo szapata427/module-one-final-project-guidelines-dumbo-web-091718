@@ -63,28 +63,32 @@ end
           # Allows you to create a goal, view current goals, view goal progress, and exit to main menu. 
           if user_goal_response == 1 
             create_goal(current_user)
+
           elsif user_goal_response == 2 
             view_goal(current_user)
-            elsif user_goal_response ==3
+
+          elsif user_goal_response ==3
               goal_amount_progress = current_user.balance - total_goal_amount(current_user)
               # shows the user goal amount progress (balance - users total goal amount)
-              if goal_amount_progress < 0
+                if goal_amount_progress < 0
                 puts "You spent more than what you were allowed to! You are $#{'%.2f' % (0 - goal_amount_progress)} over your spending goal!"
                 elsif goal_amount_progress == 0
                     puts "You can't spend anymore if you want to stay within your goals! You are at $0.00 in avaliable spending."
                 else
                   puts "You can spend $#{'%.2f' % goal_amount_progress} and still be within your saving goals. WOW!"
-
                 end
               
           elsif user_goal_response == 4
             break
+
           else 
             puts "\nInvalid response, please try again."
           end
-        end
+        end 
       when 4
         break
+      else 
+        puts "\nInvalid response, please try again."
     end
  
   end 

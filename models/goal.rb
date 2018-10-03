@@ -20,7 +20,7 @@ def create_goal(user)
   puts "\nHow much money would you like to save this month?"
   user_amount = gets.chomp.to_f 
 
-  puts "Congrats! You just created a new goal. You want to save $#{user_amount} for the purpose of #{user_description}. :)"
+  puts "\nCongrats! You just created a new goal. You want to save $#{user_amount} for the purpose of #{user_description}. :)"
 
   Goal.create(description: user_description, amount: user_amount, user_id: user.id)
 end
