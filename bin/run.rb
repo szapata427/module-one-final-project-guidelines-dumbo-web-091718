@@ -27,23 +27,27 @@ end
 
   user_choice = gets.chomp.to_i
 
-
     case user_choice  
-    when 1 
-      new_transaction = BudgetTransaction.create_transaction
-      current_user.update_attribute(:balance, current_user.balance += new_transaction.amount)   
-    
-      puts "Your new balance is $#{current_user.balance}."
-    when 2
-      #checkbalance
-      puts "\nYour current balance is $#{current_user.balance}."
-  
-    when 4
-      puts "are you jason???"
-      break
+      when 1 
+        new_transaction = BudgetTransaction.create_transaction
+        current_user.update_attribute(:balance, current_user.balance += new_transaction.amount)   
+      
+        puts "Your new balance is $#{current_user.balance}."
+      when 2
+        puts "\nYour current balance is $#{current_user.balance}."
+      when 3 
+        puts "\nSet spending goals to help you reach financial success!" 
+        puts "Would you like to \n1. Create a goal  \n2. View your current goals"
+        user_goal_response = gets.chomp
+        user_goal_response == 1 ? create_goal(current_user) : view_goal(current_user)
+      when 4
+
+        break
     end
  
   end 
+
+
 
   puts "Goodbye #{current_user.name}! Hope you saved $$$$ Hoe ;)"
 
