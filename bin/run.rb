@@ -3,21 +3,19 @@ require_relative '../config/environment'
 require 'pry'
 
 
-# shows us if the user has an account with Every Cent.
-puts "Welcome to Every Cent! Do you have an account with us?".colorize(:cyan)
-puts "1.Yes \n2.No".colorize(:light_green)
-account_active = gets.chomp.downcase
-while account_active != "yes" && account_active != "no" && account_active != "1" && account_active != "2" 
-  puts "\nInvalid response, please try again".colorize(:red)
-  account_active = gets.chomp.downcase 
-end
+prompt = TTY::Prompt.new
+system "clear"
+
+
+account_active = prompt.select("Welcome to Every Cent! Do you have an account with us?".colorize(:cyan), ["Yes", "No"])
+
 
 current_user = ""
 # creates an account if the user does not have one. 
-if account_active == "no" || account_active == "2"
+if account_active == "No" 
   current_user = User.create_new_user
   puts "Thank you for creating an account with us!".colorize(:cyan)
-elsif account_active == "yes" || account_active == "1"
+elsif account_active == "Yes" 
   current_user = User.user_login 
 end
 

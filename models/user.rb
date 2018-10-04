@@ -59,12 +59,14 @@ end
  ####helper methods######
 def create_password
   user_password = ""
+  prompt = TTY::Prompt.new
   loop do
-      puts "\nCreate a password".colorize(:blue)
-      user_password = STDIN.noecho(&:gets).chomp
+      puts ""
+      user_password = prompt.mask("Create a password:".colorize(:blue))
+      # puts "\nCreate a password".colorize(:blue)
+      # user_password = STDIN.noecho(&:gets).chomp
 
-      puts "\nConfirm password".colorize(:blue)
-      user_password_confirm = STDIN.noecho(&:gets).chomp
+      user_password_confirm = prompt.mask("Confirm password:".colorize(:blue))
       if user_password != user_password_confirm
         puts "\nPasswords don't match! Please try again ;)".colorize(:red)
         puts "========================================="
@@ -96,10 +98,10 @@ def verify_password(user_email)
   user_info = User.find_by email: user_email
 
   user_password = ""
-
+  prompt = TTY::Prompt.new
   loop do 
-    puts "\nInput your password:".colorize(:blue)
-    user_password = STDIN.noecho(&:gets).chomp 
+    puts ""
+    user_password = prompt.mask("Input your password:".colorize(:blue))
     if user_info.password != user_password
       puts "\nSorry, incorrect password. Please try again.".colorize(:red)
       puts "=============================================="
