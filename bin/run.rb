@@ -26,14 +26,14 @@ end
 
   puts ""
 
-  user_choice = prompt.select("What would you like to do today? Select a number :)".colorize(:cyan), ["1. Transactions",
+  user_choice = prompt.select("What would you like to do today?".colorize(:cyan), ["1. Transactions",
   "2. Check Spending Information", "3. Your Goals", "4. Exit"])
 
     case user_choice  
       when "1. Transactions" 
         loop do
           puts ""
-          user_transaction_response = prompt.select("Would you like to".colorize(:blue), ["1. Create a transaction", "2. View your transactions",
+          user_transaction_response = prompt.select("Would you like to".colorize(:cyan), ["1. Create a transaction", "2. View your transactions",
         "3. Exit"])
             # Creates, views, and cancels a transaction. It also adjusts the balance.
           if user_transaction_response == "1. Create a transaction"
@@ -52,18 +52,16 @@ end
         user_spending_response = ""
 
         loop do 
-          puts "\nWould you like to \n 1. View Balance \n 2. View Spending by Category. \n 3. Exit".colorize(:blue)
-          user_spending_response = Integer(gets) rescue nil 
+          puts ""
+          user_spending_response = prompt.select("Would you like to:".colorize(:cyan), ["1. View Balance", "2. View Spending by Category", "3. Exit"])
           
 
-          if user_spending_response == 1
+          if user_spending_response == "1. View Balance"
             puts "\nYour current balance is $#{'%.2f' % current_user.balance}!".colorize(:yellow)
-          elsif user_spending_response == 2
+          elsif user_spending_response == "2. View Spending by Category"
             category_spending_amount(current_user)
-          elsif user_spending_response ==3 
+          elsif user_spending_response == "3. Exit"
             break
-          else 
-            puts "\nNot a valid input. Please input a number (1-3).".colorize(:red)
           end
         end
 
