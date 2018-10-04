@@ -4,15 +4,13 @@ class BudgetTransaction < ActiveRecord::Base
   belongs_to :category
 
 def self.create_transaction(user)
+  prompt = TTY::Prompt.new
   user_response = nil
   transaction_amount = ""
   transaction_category = nil 
-  loop do 
-    puts "\nDid you spend money or did you get paid? \nSelect a number. \n 1. Spent \n 2. Received".colorize(:blue)
-    user_response = Integer(gets) rescue nil
-    break if user_response == 1 || user_response == 2
-    puts "\nPlease input a valid number (1 or 2).".colorize(:red)
-  end
+
+    puts "" 
+    user_response = prompt.select("Did you spend money or did you get paid?".colorize(:cyan), ["1. Spent", "2. Received"]) 
 
   loop do 
     puts "\nInput the amount:"
@@ -22,7 +20,7 @@ def self.create_transaction(user)
     puts "\nPlease input a valid amount.".colorize(:red)
   end
   #user response tells us whether amount was received or spent 
-  if user_response == 1 
+  if user_response == "1. Spent" 
     transaction_amount = 0-transaction_amount
   end
 
@@ -30,25 +28,29 @@ def self.create_transaction(user)
 
   transaction_name = gets.chomp
 
-  loop do 
-  puts "\nSelect the category number for this transaction:".colorize(:blue)
-  #lists all the categories by category id
-    Category.all.each do |category|
-      if category.spent == true && user_response == 1
-      puts "#{category.id}. #{category.name}"
-      elsif category.spent == false && user_response == 2
-        puts "#{category.id}. #{category.name}"
-      end
-    end
-  #collects user input and compares it with category ids in our database, loops if choice is invalid
-    transaction_category = Integer(gets) rescue nil
-    selected_category = Category.find_by id: (transaction_category)
-    break if selected_category != nil 
-    puts "Please input a valid number.".colorize(:red)
-    end
+  spent_category_array = Category.all.map do |category| 
+                            if category.spent == true 
+                              category.name 
+                             end 
+                             end.compact 
+  received_category_array = Category.all.map do |category| 
+                              if category.spent == false 
+                                category.name  
+                              end
+                              end.compact 
+  category_name = ""                            
+  if user_response == "1. Spent"
+      puts ""
+      category_name = prompt.select("Select the category number for this transaction:", spent_category_array)
+      
+  elsif user_response == "2. Received"
+      puts ""
+      category_name = prompt.select("Select the category number for this transaction:", received_category_array)
+  end
+    transaction_category = Category.find_by name: category_name 
 
 
-  BudgetTransaction.create(description: transaction_name, amount: transaction_amount, user_id: user.id, category_id: transaction_category, date: Time.now)
+  BudgetTransaction.create(description: transaction_name, amount: transaction_amount, user_id: user.id, category_id: transaction_category.id, date: Time.now)
 
 end
 
