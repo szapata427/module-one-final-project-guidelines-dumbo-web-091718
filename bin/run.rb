@@ -7,17 +7,17 @@ require 'pry'
 puts "Welcome to Every Cent! Do you have an account with us?"
 puts "1.Yes \n2.No"
 account_active = gets.chomp.downcase
-while account_active != "yes" && account_active != "no"
+while account_active != "yes" && account_active != "no" && account_active != "1" && account_active != "2" 
   puts "\nInvalid response, please try again"
   account_active = gets.chomp.downcase 
 end
 
 current_user = ""
 # creates an account if the user does not have one. 
-if account_active == "no"
+if account_active == "no" || account_active == "2"
   current_user = User.create_new_user
   puts "Thank you for creating an account with us!"
-elsif account_active == "yes"
+elsif account_active == "yes" || account_active == "1"
   current_user = User.user_login 
 end
 

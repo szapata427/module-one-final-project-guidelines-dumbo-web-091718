@@ -13,7 +13,8 @@ end
 def category_spending_amount(user)
   ultimate_hash = {}
   transactions_array = BudgetTransaction.where(:user_id => user.id)
-  Category.all.each do |category|
+  Category.where(spent: true).each do |category|
+      # if category.spent == true
     total = 0
       transactions_array.each do |transactions|
         if category.id == transactions.category_id && transactions.amount < 0
@@ -26,6 +27,7 @@ def category_spending_amount(user)
     sorted_array.each_with_index do |category, idx|
       puts "#{idx + 1}. #{category[0]}: $#{category[1]}"
       end
+    # end
 end
 
 

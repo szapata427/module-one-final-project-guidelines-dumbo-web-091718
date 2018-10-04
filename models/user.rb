@@ -7,7 +7,10 @@ class User < ActiveRecord::Base
   def self.create_new_user
     puts "\nPlease input your full name"
     user_name = gets.chomp
+    user_name = user_name.titleize
+    
 
+      user_email = ""
     loop do 
     puts "\nEnter your email:"
     user_email = gets.chomp
@@ -103,6 +106,8 @@ def verify_password(user_email)
     end
     break if user_info.password == user_password 
   end
+
+  
 
 end
 
