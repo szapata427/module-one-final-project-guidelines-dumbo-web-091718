@@ -76,7 +76,7 @@ end
       when 3 
         puts "\nSet spending goals to help you reach financial success!" 
         loop do
-          puts "\nWould you like to \n 1. Create a goal  \n 2. View your current goals \n 3. View goal progress \n 4. Exit"
+          puts "\nWould you like to \n 1. Create a goal  \n 2. View your current goals \n 3. View goal progress \n 4. Delete a goal \n 5. Exit"
           user_goal_response = gets.chomp.to_i
           # Allows you to create a goal, view current goals, view goal progress, and exit to main menu. 
           if user_goal_response == 1 
@@ -95,12 +95,13 @@ end
                 else
                   puts "You can spend $#{'%.2f' % goal_amount_progress} and still be within your saving goals. WOW!"
                 end
-              
           elsif user_goal_response == 4
+              delete_goal(current_user)
+          elsif user_goal_response == 5
             break
 
           else 
-            puts "\nNot a valid input. Please input a number (1-4)."
+            puts "\nNot a valid input. Please input a number (1-5)."
           end
         end 
       when 4

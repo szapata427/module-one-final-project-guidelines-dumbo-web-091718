@@ -39,3 +39,22 @@ def view_goal(user)
     end
   end
 end
+
+def delete_goal(user)
+  puts "Already giving up? What goal would you like to delete?"
+  view_goal(user)
+  goals_array = Goal.where(:user_id => user.id)
+  #adds an exit option to the end of the list of goals
+  puts "#{goals_array.length + 1}. Exit: No longer wish to delete a goal."
+
+  user_delete_response = Integer(gets) rescue nil 
+
+  if user_delete_response == goals_array.length+1
+    return nil  
+  else 
+    goal_id = goals_array[user_delete_response-1]
+    Goal.delete_all(id: goal_id)
+    puts "Goal was succesfully deleted!"
+  end 
+  
+end
