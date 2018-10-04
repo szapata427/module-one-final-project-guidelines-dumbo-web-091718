@@ -62,11 +62,11 @@ def view_transactions(user)
  else
     puts "Your past transactions are:"
     transactions_array.each_with_index do |transaction, index|
-      # if transaction.amount < 0
-      puts "#{index+1}. Amount: #{transaction.amount}, Desc: #{transaction.description}, Date: #{transaction.date}."
-      # else 
-        # puts "#{index+1}. Amount: #{transaction.amount}, Desc: #{transaction.description}, Date: #{transaction.date}."
-      # end
+      if transaction.amount < 0
+      puts "#{index+1}. Amount: #{transaction.amount}, Desc: #{transaction.description}, Date: #{transaction.date}.".colorize(:red)
+      else 
+        puts "#{index+1}. Amount: #{transaction.amount}, Desc: #{transaction.description}, Date: #{transaction.date}.".colorize(:green)
+      end
     end
  end
 end
