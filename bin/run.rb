@@ -68,16 +68,16 @@ end
       when "3. Your Goals" 
         puts "\nSet spending goals to help you reach financial success!".colorize(:cyan)
         loop do
-          puts "\nWould you like to \n 1. Create a goal  \n 2. View your current goals \n 3. View goal progress \n 4. Delete a goal \n 5. Exit".colorize(:light_green)
-          user_goal_response = gets.chomp.to_i
+          puts ""
+          user_goal_response = prompt.select("Would you like to:".colorize(:cyan), ["1. Create a goal", "2. View your current goals", "3. View goal progress", "4. Delete a goal", "5. Exit"])
           # Allows you to create a goal, view current goals, view goal progress, and exit to main menu. 
-          if user_goal_response == 1 
+          if user_goal_response == "1. Create a goal" 
             create_goal(current_user)
 
-          elsif user_goal_response == 2 
+          elsif user_goal_response == "2. View your current goals" 
             view_goal(current_user)
 
-          elsif user_goal_response ==3
+          elsif user_goal_response == "3. View goal progress"
               goal_amount_progress = current_user.balance - total_goal_amount(current_user)
               # shows the user goal amount progress (balance - users total goal amount)
                 if goal_amount_progress < 0
@@ -87,15 +87,13 @@ end
                 else
                   puts "You can spend $#{'%.2f' % goal_amount_progress} and still be within your saving goals. WOW!".colorize(:green)
                 end
-          elsif user_goal_response == 4
+          elsif user_goal_response == "4. Delete a goal"
               delete_goal(current_user)
-          elsif user_goal_response == 5
+          elsif user_goal_response == "5. Exit"
             break
-
-          else 
-            puts "\nNot a valid input. Please input a number (1-5).".colorize(:red)
           end
-        end 
+        end
+         
       when "4. Exit"
         break
     end

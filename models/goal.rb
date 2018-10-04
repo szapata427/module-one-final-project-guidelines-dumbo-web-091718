@@ -40,30 +40,32 @@ def view_goal(user)
   end
 end
 
-def delete_goal(user)
-  
-    puts "\n Already giving up? What goal would you like to delete?".colorize(:blue)
-    loop do 
-    view_goal(user)
-    goals_array = Goal.where(:user_id => user.id)
-    #adds an exit option to the end of the list of goals
-    puts "#{goals_array.length + 1}. Exit: No longer wish to delete a goal.".colorize(:red)
+def array_of_goals_string(goals_array)
+  array = []
+  goals_array.each_with_index do |goal, index|
+    array << "#{index+1}. You want to save $#{goal.amount} for the purpose of #{goal.description} with id #{goal.id}.".colorize(:white)
+  end
+  array << "#{array.length + 1}. Exit ".colorize(:red)
 
-    user_delete_response = Integer(gets) rescue nil 
-    
-    
-    if user_delete_response == nil
-      puts "Not a valid input. Please select a number from the list of goals.".colorize(:red)
-    elsif user_delete_response == goals_array.length+1
-      return nil  
-    elsif user_delete_response <= goals_array.length && user_delete_response > 0
-      goal_id = goals_array[user_delete_response-1]
-      Goal.delete_all(id: goal_id)
+end
+
+def delete_goal(user)
+  prompt = TTY::Prompt.new
+
+  
+    loop do 
+    goals_array = Goal.where(:user_id => user.id)
+    array_of_goal_strings = array_of_goals_string(goals_array)
+    puts ""
+    user_delete_response = prompt.select("Already giving up? What goal would you like to delete?".colorize(:magenta), [array_of_goal_strings])
+      if user_delete_response == array_of_goal_strings.last
+        break
+      else
+      goal_index = array_of_goal_strings.index(user_delete_response)
+      goal_to_delete = goals_array[goal_index]
+      goal_to_delete.delete
       puts "Goal was succesfully deleted!".colorize(:light_magenta)
-      return nil 
-    else 
-      puts "Not a valid input. Please select a number from the list of goals.".colorize(:red)
-    end 
+      end 
   end
   
 end
