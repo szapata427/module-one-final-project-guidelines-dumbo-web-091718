@@ -14,16 +14,16 @@ end
 
 def create_goal(user)
     user_amount = ""
-  puts "\nBriefly describe your goal:"
+  puts "\nBriefly describe your goal:".colorize(:blue)
   user_description = gets.chomp.downcase  
 
 loop do
-  puts "\nHow much money would you like to save this month?"
+  puts "\nHow much money would you like to save this month?".colorize(:blue)
   user_amount = Float(gets) rescue nil
   break if user_amount != nil
-  puts "\nThat is not a valid amount! Input a valid number please."
+  puts "\nThat is not a valid amount! Input a valid number please.".colorize(:red)
 end
-  puts "\nCongrats! You just created a new goal. You want to save $#{user_amount} for the purpose of #{user_description}. :)"
+  puts "\nCongrats! You just created a new goal. You want to save $#{user_amount} for the purpose of #{user_description}. :)".colorize(:blue)
 
   Goal.create(description: user_description, amount: user_amount, user_id: user.id)
 end
@@ -31,38 +31,38 @@ end
 def view_goal(user)
   goals_array = Goal.where(:user_id => user.id)
   if goals_array == []
-    puts "You currently don't have any goals :(. Create one!"
+    puts "You currently don't have any goals :(. Create one!".colorize(:light_red)
   else
-    puts "\nYour current goals are:"
+    puts "\nYour current goals are:".colorize(:light_blue)
     goals_array.each_with_index do |goal, index|
-      puts "#{index+1}. You want to save $#{goal.amount} for the purpose of #{goal.description}."
+      puts "#{index+1}. You want to save $#{goal.amount} for the purpose of #{goal.description}.".colorize(:light_cyan)
     end
   end
 end
 
 def delete_goal(user)
   
-    puts "\n Already giving up? What goal would you like to delete?"
+    puts "\n Already giving up? What goal would you like to delete?".colorize(:blue)
     loop do 
     view_goal(user)
     goals_array = Goal.where(:user_id => user.id)
     #adds an exit option to the end of the list of goals
-    puts "#{goals_array.length + 1}. Exit: No longer wish to delete a goal."
+    puts "#{goals_array.length + 1}. Exit: No longer wish to delete a goal.".colorize(:red)
 
     user_delete_response = Integer(gets) rescue nil 
     
     
     if user_delete_response == nil
-      puts "Not a valid input. Please select a number from the list of goals."
+      puts "Not a valid input. Please select a number from the list of goals.".colorize(:red)
     elsif user_delete_response == goals_array.length+1
       return nil  
     elsif user_delete_response <= goals_array.length && user_delete_response > 0
       goal_id = goals_array[user_delete_response-1]
       Goal.delete_all(id: goal_id)
-      puts "Goal was succesfully deleted!"
+      puts "Goal was succesfully deleted!".colorize(:light_magenta)
       return nil 
     else 
-      puts "Not a valid input. Please select a number from the list of goals."
+      puts "Not a valid input. Please select a number from the list of goals.".colorize(:red)
     end 
   end
   
