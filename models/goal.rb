@@ -28,6 +28,7 @@ end
   Goal.create(description: user_description, amount: user_amount, user_id: user.id)
 end
 
+
 def view_goal(user)
   goals_array = Goal.where(:user_id => user.id)
   if goals_array == []
@@ -40,6 +41,8 @@ def view_goal(user)
   end
 end
 
+
+#helper method for delete goal method
 def array_of_goals_string(goals_array)
   array = []
   goals_array.each_with_index do |goal, index|
@@ -58,13 +61,13 @@ def delete_goal(user)
     array_of_goal_strings = array_of_goals_string(goals_array)
     puts ""
     user_delete_response = prompt.select("Already giving up? What goal would you like to delete?".colorize(:magenta), [array_of_goal_strings])
-      if user_delete_response == array_of_goal_strings.last
+      if user_delete_response == array_of_goal_strings.last #exit back 
         break
-      else
-      goal_index = array_of_goal_strings.index(user_delete_response)
-      goal_to_delete = goals_array[goal_index]
-      goal_to_delete.delete
-      puts "Goal was succesfully deleted!".colorize(:light_magenta)
+      else #delete the goal
+        goal_index = array_of_goal_strings.index(user_delete_response)
+        goal_to_delete = goals_array[goal_index]
+        goal_to_delete.delete
+        puts "Goal was succesfully deleted!".colorize(:light_magenta)
       end 
   end
   

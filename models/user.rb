@@ -5,31 +5,40 @@ class User < ActiveRecord::Base
   
 
   def self.create_new_user
-    puts "\nPlease input your full name".colorize(:blue)
-    user_name = gets.chomp
-    user_name = user_name.titleize
-    
-
-      user_email = ""
+    prompt = TTY::Prompt.new
+    user_name = ""
     loop do 
-    puts "\nEnter your email:".colorize(:blue)
-    user_email = gets.chomp
-
-    break if user_email.include?("@") && user_email.include?(".")
-    puts "\nPlease input a valid email.".colorize(:red)
+      puts "\nPlease input your full name".colorize(:blue)
+      user_name = gets.chomp
+      break if !(user_name.blank?)
+      puts "Please input at least one character for your name :).".colorize(:red)
     end
+    user_name = user_name.titleize
+
+    user_email = prompt.ask('What is your email?') { |q| q.validate :email }
 
     user_password = create_password
     # create_password is a helper method to loop if passwords dont match.
 
-    puts "\nWhat is your occupation?".colorize(:blue)
-    user_occupation = gets.chomp
+    puts "\nWhat is your occupation? (Optional)".colorize(:blue)
+    user_occupation = String(gets) rescue nil 
 
-    puts "\nEnter your age:".colorize(:blue)
-    user_age = gets.chomp
+    user_age = 0
+    loop do 
+      puts "\nEnter your age (optional):".colorize(:blue)
+      user_age = Integer(gets) rescue 0 
+      break if user_age > 0
+      puts "You probably need to chill and stop trying to break our code.. :)".colorize(:red)
+    end
 
-    puts "\nLast step! What is your starting budget?".colorize(:blue)
-    user_balance = gets.chomp.to_f 
+    user_balance = ""
+    loop do 
+      puts "\nLast step! What is your starting budget?".colorize(:blue)
+      user_balance = Float(gets) rescue -1.0
+      break if user_balance >= 0
+      Kernel.abort("You probably don't need this app at the moment. Come through when you have at least $0...".colorize(:red))
+    end
+  
     puts "Awesome! Your starting budget is #{user_balance}.".colorize(:green)
 
     puts "\nWelcome to Every Cent! We are so excited to have you here.".colorize(:blue)
