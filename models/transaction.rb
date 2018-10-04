@@ -32,13 +32,14 @@ def self.create_transaction(user)
 
   loop do 
   puts "\nSelect the category number for this transaction:"
+  #lists all the categories by category id
     Category.all.each do |category|
       puts "#{category.id}. #{category.name}"
-      
     end
+  #collects user input and compares it with category ids in our database, loops if choice is invalid
     transaction_category = Integer(gets) rescue nil
-    var1 = Category.find_by id: transaction_category
-    break if var1 != nil 
+    selected_category = Category.find_by id: (transaction_category)
+    break if selected_category != nil 
     puts "Please input a valid number."
     end
 

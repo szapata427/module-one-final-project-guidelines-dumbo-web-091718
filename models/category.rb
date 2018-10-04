@@ -36,6 +36,8 @@ def category_spending_amount(user)
     sorted_array.each_with_index do |category, idx|
       puts "#{idx + 1}. #{category[0]}: $#{category[1]}"
       end
-    end
+end
+
+
 
 
