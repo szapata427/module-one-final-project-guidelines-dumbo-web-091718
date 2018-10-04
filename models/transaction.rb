@@ -35,9 +35,9 @@ def self.create_transaction(user)
   #lists all the categories by category id
     Category.all.each do |category|
       if category.spent == true && user_response == 1
-      puts "\n #{category.id}. #{category.name}"
+      puts "#{category.id}. #{category.name}"
       elsif category.spent == false && user_response == 2
-        puts "\n #{category.id}. #{category.name}"
+        puts "#{category.id}. #{category.name}"
       end
     end
   #collects user input and compares it with category ids in our database, loops if choice is invalid

@@ -30,15 +30,15 @@ end
     # it is a loop. 
 
   puts "\nWhat would you like to do today? Select a number :)"
-  puts " 1. Transactions \n 2. Check Spending & Expenses Information \n 3. Your Goals \n 4. Exit"
+  puts " 1. Transactions \n 2. Check Spending Information \n 3. Your Goals \n 4. Exit"
 
   user_choice = gets.chomp.to_i
 
     case user_choice  
       when 1 
         loop do
-          puts "\nWould you like to \n 1. Create a transaction \n 2. View your transactions \n 3. Cancel"
-          user_transaction_response = gets.chomp.to_i
+          puts "\nWould you like to \n 1. Create a transaction \n 2. View your transactions \n 3. Exit"
+          user_transaction_response = Integer(gets) rescue nil 
             # Creates, views, and cancels a transaction. It also adjusts the balance.
           if user_transaction_response == 1
             new_transaction = BudgetTransaction.create_transaction(current_user)
@@ -50,7 +50,7 @@ end
           elsif user_transaction_response == 3
             break
           else 
-            puts "\nInvalid response, please try again."
+            puts "\nNot a valid input. Please input a number (1-3)."
           end
         end
       when 2
@@ -58,18 +58,19 @@ end
         user_spending_response = ""
 
         loop do 
-        puts "Would you like to \n 1. View Balance \n 2. Spending by Category. \n 3. Unpaid Expenses by Priority"
-          user_spending_response = gets.chomp.to_i
-        break if user_spending_response == 1 || user_spending_response == 2 || user_spending_response == 3
-        puts "Not a valid input. Please input a number (1, 2, or 3)."
-        end
+          puts "\nWould you like to \n 1. View Balance \n 2. View Spending by Category. \n 3. Exit"
+          user_spending_response = Integer(gets) rescue nil 
+          
 
-        if user_spending_response == 1
-        puts "\nYour current balance is $#{'%.2f' % current_user.balance}!"
-        elsif user_spending_response == 2
-          category_spending_amount(current_user)
-        elsif user_spending_response == 3
-
+          if user_spending_response == 1
+            puts "\nYour current balance is $#{'%.2f' % current_user.balance}!"
+          elsif user_spending_response == 2
+            category_spending_amount(current_user)
+          elsif user_spending_response ==3 
+            break
+          else 
+            puts "\nNot a valid input. Please input a number (1-3)."
+          end
         end
 
       when 3 
@@ -99,13 +100,13 @@ end
             break
 
           else 
-            puts "\nInvalid response, please try again."
+            puts "\nNot a valid input. Please input a number (1-4)."
           end
         end 
       when 4
         break
       else 
-        puts "\nInvalid response, please try again."
+        puts "\nNot a valid input. Please input a number (1-4)."
     end
  
   end 
