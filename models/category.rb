@@ -8,17 +8,7 @@ class Category < ActiveRecord::Base
 
 end
 
-def create_category
-  if Category.all == []
-    Category.create(name: "Rent/Mortage", priority: 5, fixed: true)
-    Category.create(name: "Phone Bill", priority: 4, fixed: true)
-    Category.create(name: "Gym Membership", priority: 3, fixed: true)
-    Category.create(name: "Grocery", priority: 5, fixed: false)
-    Category.create(name: "Transportation", priority: 3, fixed: false)
-    Category.create(name: "Dining out", priority: 2, fixed: false)
-    Category.create(name: "Miscellaneous", priority: 2, fixed: false)
-  end  
-end
+
 
 def category_spending_amount(user)
   ultimate_hash = {}
