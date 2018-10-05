@@ -19,8 +19,8 @@ def create_goal(user)
 
 loop do
   puts "\nHow much money would you like to save this month?".colorize(:blue)
-  user_amount = Float(gets) rescue nil
-  break if user_amount != nil
+  user_amount = Float(gets) rescue 0
+  break if user_amount > 0
   puts "\nThat is not a valid amount! Input a valid number please.".colorize(:red)
 end
   puts "\nCongrats! You just created a new goal. You want to save $#{user_amount} for the purpose of #{user_description}. :)".colorize(:blue)
@@ -46,7 +46,7 @@ end
 def array_of_goals_string(goals_array)
   array = []
   goals_array.each_with_index do |goal, index|
-    array << "#{index+1}. You want to save $#{goal.amount} for the purpose of #{goal.description} with id #{goal.id}.".colorize(:white)
+    array << "#{index+1}. You want to save $#{goal.amount} for the purpose of #{goal.description} with (id##{goal.id}).".colorize(:white)
   end
   array << "#{array.length + 1}. Exit ".colorize(:red)
 

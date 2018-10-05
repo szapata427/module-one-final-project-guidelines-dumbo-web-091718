@@ -70,11 +70,13 @@ def create_password
   user_password = ""
   prompt = TTY::Prompt.new
   loop do
-      puts ""
-      user_password = prompt.mask("Create a password:".colorize(:blue))
-      # puts "\nCreate a password".colorize(:blue)
-      # user_password = STDIN.noecho(&:gets).chomp
+      loop do
+        puts ""
+        user_password = prompt.mask("Create a password:".colorize(:blue))
 
+      break if !user_password.blank? 
+        puts "Please enter a valid password that is at least one character.".colorize(:red)
+      end 
       user_password_confirm = prompt.mask("Confirm password:".colorize(:blue))
       if user_password != user_password_confirm
         puts "\nPasswords don't match! Please try again ;)".colorize(:red)
