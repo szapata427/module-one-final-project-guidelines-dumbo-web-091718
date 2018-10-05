@@ -15,8 +15,8 @@ def self.create_transaction(user)
   loop do 
     puts "\nInput the amount:"
     #transaction amount tells us the amount 
-    transaction_amount = Float(gets) rescue nil
-    break if transaction_amount != nil 
+    transaction_amount = Float(gets) rescue 0
+    break if transaction_amount > 0
     puts "\nPlease input a valid amount.".colorize(:red)
   end
   #user response tells us whether amount was received or spent 
@@ -65,9 +65,9 @@ def view_transactions(user)
     puts "Your past transactions are:".colorize(:blue)
     transactions_array.each_with_index do |transaction, index|
       if transaction.amount < 0
-      puts "#{index+1}. Amount: #{transaction.amount}, Desc: #{transaction.description}, Date: #{transaction.date}.".colorize(:red)
+      puts "#{index+1}. Amount: -$#{'%.2f' % (0-transaction.amount)}, Desc: #{transaction.description}, Date: #{transaction.date}.".colorize(:red)
       else 
-        puts "#{index+1}. Amount: #{transaction.amount}, Desc: #{transaction.description}, Date: #{transaction.date}.".colorize(:green)
+        puts "#{index+1}. Amount: $#{'%.2f' % transaction.amount}, Desc: #{transaction.description}, Date: #{transaction.date}.".colorize(:green)
       end
     end
  end
