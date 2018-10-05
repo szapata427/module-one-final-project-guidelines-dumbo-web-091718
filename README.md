@@ -1,5 +1,5 @@
 
-#💰 EveryCent 
+# 💰 EveryCent 
 
 EveryCent helps you reach financial success by enabling you to easily manage your budget. How, might you ask? EveryCent tracks your spending, helps you set goals, and allows you to effortlessly view your financial progress. Money comes, money goes, but Every Cent counts. 
 
