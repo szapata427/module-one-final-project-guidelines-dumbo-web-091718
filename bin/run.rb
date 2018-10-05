@@ -121,5 +121,5 @@ end
 
 
 
-  puts "Goodbye #{current_user.name}! Hope you saved $$$$ Hoe ;)".colorize(:color => :light_cyan, :background => :light_green)
+  puts "\nGoodbye #{current_user.name}! Hope you saved 💸 💸 💸  😉.".colorize(:green)
 

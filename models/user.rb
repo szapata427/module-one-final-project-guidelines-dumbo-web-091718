@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
         end 
     end
   
-    puts "Awesome! Your starting budget is #{user_balance}.".colorize(:green)
+    puts "Awesome! Your starting budget is $#{'%.2f' % user_balance}.".colorize(:green)
 
     puts "\nWelcome to Every Cent! We are so excited to have you here.".colorize(:blue)
 

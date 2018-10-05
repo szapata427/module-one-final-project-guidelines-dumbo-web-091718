@@ -46,7 +46,7 @@ end
 def array_of_goals_string(goals_array)
   array = []
   goals_array.each_with_index do |goal, index|
-    array << "#{index+1}. You want to save $#{'%.2f' % goal.amount} for the purpose of #{goal.description} with (id##{goal.id}).".colorize(:white)
+    array << "#{index+1}. You want to save $#{'%.2f' % goal.amount} for the purpose of #{goal.description} (with id##{goal.id}).".colorize(:white)
   end
   array << "#{array.length + 1}. Exit ".colorize(:red)
 

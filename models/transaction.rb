@@ -60,7 +60,7 @@ end
 def view_transactions(user)
  transactions_array = BudgetTransaction.where(:user_id => user.id)
  if transactions_array == [] 
-    puts "\nYou have no transactions! Create one to get started. :)".colorize(:blue)
+    puts "\nYou have no transactions! Create one to get started. :)".colorize(:light_red)
  else
     puts "Your past transactions are:".colorize(:blue)
     transactions_array.each_with_index do |transaction, index|
