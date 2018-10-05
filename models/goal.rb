@@ -18,12 +18,12 @@ def create_goal(user)
   user_description = gets.chomp.downcase  
 
 loop do
-  puts "\nHow much money would you like to save this month?".colorize(:blue)
+  puts "\nHow much money would you like to save this month? (numbers and decimals only)".colorize(:blue)
   user_amount = Float(gets) rescue 0
   break if user_amount > 0
   puts "\nThat is not a valid amount! Input a valid number please.".colorize(:red)
 end
-  puts "\nCongrats! You just created a new goal. You want to save $#{user_amount} for the purpose of #{user_description}. :)".colorize(:blue)
+  puts "\nCongrats! You just created a new goal. You want to save $#{'%.2f' % user_amount} for the purpose of #{user_description}. :)".colorize(:blue)
 
   Goal.create(description: user_description, amount: user_amount, user_id: user.id)
 end
@@ -36,7 +36,7 @@ def view_goal(user)
   else
     puts "\nYour current goals are:".colorize(:light_blue)
     goals_array.each_with_index do |goal, index|
-      puts "#{index+1}. You want to save $#{goal.amount} for the purpose of #{goal.description}.".colorize(:light_cyan)
+      puts "#{index+1}. You want to save $#{'%.2f' % goal.amount} for the purpose of #{goal.description}.".colorize(:light_cyan)
     end
   end
 end
@@ -46,7 +46,7 @@ end
 def array_of_goals_string(goals_array)
   array = []
   goals_array.each_with_index do |goal, index|
-    array << "#{index+1}. You want to save $#{goal.amount} for the purpose of #{goal.description} with (id##{goal.id}).".colorize(:white)
+    array << "#{index+1}. You want to save $#{'%.2f' % goal.amount} for the purpose of #{goal.description} with (id##{goal.id}).".colorize(:white)
   end
   array << "#{array.length + 1}. Exit ".colorize(:red)
 

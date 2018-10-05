@@ -23,9 +23,10 @@ def category_spending_amount(user)
       end
       ultimate_hash[category.name] = total
   end
+  #displaying hash values
     sorted_array = ultimate_hash.sort_by { |key, value| value}.reverse
     sorted_array.each_with_index do |category, idx|
-      puts "#{idx + 1}. #{category[0]}: $#{category[1]}"
+      puts "#{idx + 1}. #{category[0]}: $#{'%.2f' % category[1]}".colorize(:yellow)
       end
     # end
 end

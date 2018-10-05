@@ -33,10 +33,14 @@ class User < ActiveRecord::Base
 
     user_balance = ""
     loop do 
-      puts "\nLast step! What is your starting budget?".colorize(:blue)
-      user_balance = Float(gets) rescue -1.0
-      break if user_balance >= 0
-      Kernel.abort("You probably don't need this app at the moment. Come through when you have at least $0...".colorize(:red))
+      puts "\nLast step! What is your starting budget? (Please use numbers and decimals only)".colorize(:blue)
+      user_balance = Float(gets) rescue 0
+      break if user_balance > 0
+        if user_balance < 0
+          Kernel.abort("You probably don't need this app at the moment. Come through when you have at least 1¢...".colorize(:red))
+        else
+          puts "\nInvalid amount, please try again :).".colorize(:red)
+        end 
     end
   
     puts "Awesome! Your starting budget is #{user_balance}.".colorize(:green)

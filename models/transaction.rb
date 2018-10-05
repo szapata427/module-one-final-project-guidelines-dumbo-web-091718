@@ -13,7 +13,7 @@ def self.create_transaction(user)
     user_response = prompt.select("Did you spend money or did you get paid?".colorize(:cyan), ["1. Spent", "2. Received"]) 
 
   loop do 
-    puts "\nInput the amount:"
+    puts "\nInput the amount (numbers and decimals only):"
     #transaction amount tells us the amount 
     transaction_amount = Float(gets) rescue 0
     break if transaction_amount > 0
